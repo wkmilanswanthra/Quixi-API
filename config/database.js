@@ -19,7 +19,6 @@ const connectDB = async () => {
         // Log a message indicating that the connection to the database was successful
         console.log(`MongoDB connection: ${connection.connection.host}`)
     } catch (e) {
-
         // Log an error message and exit the process if the connection to the database fails
         console.log(e)
         process.exit(1)
