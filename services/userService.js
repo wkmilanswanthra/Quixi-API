@@ -83,3 +83,8 @@ exports.deleteUserById = async (userId) => {
     const deletedUser = await userSchema.findByIdAndDelete(userId);
     return deletedUser;
 };
+
+exports.getBalanceById = async (userId) => {
+    const balance = await userSchema.findById(userId, 'accountBalance');
+    return balance;
+}

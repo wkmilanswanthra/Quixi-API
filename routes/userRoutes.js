@@ -13,6 +13,7 @@ route.post("/login", userController.loginUser);
 route.get("/", checkAuth, userController.find);
 route.patch("/:id", checkAuth, userController.updateUserById);
 route.delete("/:id", checkAuth, userController.deleteUserById);
+route.get("/balance/:id", checkAuth, userController.getBalance);
 
 //Export router
 module.exports = route;

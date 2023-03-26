@@ -36,3 +36,8 @@ exports.deleteGroupById = async (groupId) => {
     const deletedGroup = await groupSchema.findByIdAndDelete(groupId);
     return deletedGroup;
 };
+
+exports.getGroupsByUser = async (userId) => {
+    const groups = await groupSchema.find({members: userId})
+    return groups;
+}

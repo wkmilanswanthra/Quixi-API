@@ -23,7 +23,8 @@ const userSchema = new mongoose.Schema({
     },
     accountBalance: {
         type: Number,
-        required: false
+        required: false,
+        default: 0
     },
     email: {
         type: String,

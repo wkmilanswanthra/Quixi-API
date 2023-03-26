@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const transcationSchema = new mongoose.Schema({
+const transactionSchema = new mongoose.Schema({
     _id: {
         type: mongoose.mongo.ObjectId,
     },
@@ -32,3 +32,9 @@ const transcationSchema = new mongoose.Schema({
         default: "pending",
     },
 });
+
+// Create the User model using the user schema
+const Transaction = mongoose.model('Transaction', transactionSchema);
+
+// Export the User model
+module.exports = Transaction;
