@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const transactionService = require("../services/transactionService");
+const transactionService = require("../../services/user/transactionService");
 
 exports.createTransaction = async (req, res) => {
     if (!req.body)

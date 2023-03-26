@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
-const groupService = require('../services/groupService')
-const userService = require("../services/userService");
+const groupService = require('../../services/user/groupService')
+const userService = require("../../services/user/userService");
 
 exports.createGroup = async (req, res) => {
     if (!req.body)

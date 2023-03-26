@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const checkAuth = require("../middleware/authentication");
-const expenseController = require("../controllers/expenseController");
-const transactionController = require("../controllers/transactionController");
+const checkAuth = require("../../middleware/authentication");
+const expenseController = require("../../controllers/user/expenseController");
+const transactionController = require("../../controllers/user/transactionController");
 
 router.post("/", checkAuth, expenseController.createExpense);
 router.get("/", checkAuth, expenseController.findExpenses);

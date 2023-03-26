@@ -4,16 +4,16 @@ const express = require("express");
 // Create an instance of the Express router
 const route = express.Router();
 
-const checkAuth = require('../middleware/authentication')
+const checkAuth = require("../../middleware/authentication");
 
-const userController = require("../controllers/userController");
+const userController = require("../../controllers/user/userController");
 
 route.post("/signup", userController.createUser);
 route.post("/login", userController.loginUser);
 route.get("/", checkAuth, userController.find);
 route.patch("/:id", checkAuth, userController.updateUserById);
 route.delete("/:id", checkAuth, userController.deleteUserById);
-route.get("/balance/:id", checkAuth, userController.getBalance);
+route.get("/validate", checkAuth);
 
 //Export router
 module.exports = route;
