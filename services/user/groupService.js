@@ -14,6 +14,14 @@ exports.createGroup = async (groupData, token) => {
     return group;
 }
 
+exports.findGroupByUserId = async (userId) => {
+    try {
+        return await groupSchema.find({members: userId}).exec();
+    } catch (err) {
+        console.error(err);
+        throw err;
+    }
+}
 exports.findByGroupId = async (groupId) => {
     const group = await groupSchema.findById(groupId);
     return group;
@@ -36,8 +44,3 @@ exports.deleteGroupById = async (groupId) => {
     const deletedGroup = await groupSchema.findByIdAndDelete(groupId);
     return deletedGroup;
 };
-
-exports.getGroupsByUser = async (userId) => {
-    const groups = await groupSchema.find({members: userId})
-    return groups;
-}
