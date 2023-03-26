@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const userService = require("../services/userService");
+const userService = require("../../services/user/userService");
 
 //Create and save a new user
 exports.createUser = async (req, res) => {

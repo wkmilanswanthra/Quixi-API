@@ -55,9 +55,11 @@ app.use((req, res, next) => {
  * @param {string} path - The path at which to mount the middleware function or router
  * @param {Function} router - The middleware function or router to mount
  */
-app.use("/api/users", require("./routes/userRoutes"));
-app.use("/api/groups", require("./routes/groupRoutes"));
-app.use("/api/expenses", require("./routes/expenseRoutes"));
+app.use("/api/users", require("./routes/user/userRoutes"));
+app.use("/api/groups", require("./routes/user/groupRoutes"));
+app.use("/api/expenses", require("./routes/user/expenseRoutes"));
+
+app.use("/api/admin/" ,require("./routes/admin/adminRoutes"));
 
 /**
  * Starts the server and listens on the specified port.

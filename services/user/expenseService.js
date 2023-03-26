@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
-const expenseSchema = require("../schema/expense");
-const transactionSchema = require("../schema/transaction");
+const expenseSchema = require("../../schema/expense");
+const transactionSchema = require("../../schema/transaction");
 
 exports.createExpense = async (expenseData) => {
     expenseData._id = new mongoose.mongo.ObjectId();

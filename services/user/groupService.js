@@ -1,7 +1,7 @@
-const groupSchema = require("../schema/group")
+const groupSchema = require("../../schema/group")
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
-const userSchema = require("../schema/user");
+const userSchema = require("../../schema/user");
 
 
 exports.createGroup = async (groupData, token) => {

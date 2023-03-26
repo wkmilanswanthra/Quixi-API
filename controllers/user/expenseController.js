@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const expenseService = require("../services/expenseService");
+const expenseService = require("../../services/user/expenseService");
 
 exports.createExpense = async (req, res) => {
     if (!req.body)

@@ -1,5 +1,5 @@
-const userSchema = require("../schema/user");
-const credentialSchema = require("../schema/credential");
+const userSchema = require("../../schema/user");
+const credentialSchema = require("../../schema/credential");
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");

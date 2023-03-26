@@ -1,8 +1,8 @@
 const express = require('express')
-const checkAuth = require('../middleware/authentication')
+const checkAuth = require('../../middleware/authentication')
 const route = express.Router();
 
-const groupController = require("../controllers/groupController");
+const groupController = require("../../controllers/user/groupController");
 
 route.post('/', checkAuth, groupController.createGroup)
 route.get('/', checkAuth, groupController.find)
