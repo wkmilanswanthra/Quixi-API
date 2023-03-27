@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const transactionService = require("../../services/user/transactionService");
+const {simplifyExpenses} = require('../../middleware/debtSimplify')
 
 exports.createTransaction = async (req, res) => {
     if (!req.body)
@@ -19,13 +20,13 @@ exports.createTransaction = async (req, res) => {
 
 exports.createMultipleTransactions = async (req, res) => {
     if (!req.body)
-        return res.status(400).send({message: "Request body is required"});
+        throw new Error("Request body is required")
+
     try {
-        return await transactionService.createMultipleTransactions(JSON.parse(req.body.transactions));
+        const transactions = simplifyExpenses(JSON.parse(req.body.contribution)[0], req.body.splitMethod);
+        return await transactionService.createMultipleTransactions(transactions);
     } catch (e) {
-        res
-            .status(500)
-            .send({message: e.message || "There was an error saving the transaction"});
+        throw new Error(e);
     }
 };
 
