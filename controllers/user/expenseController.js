@@ -1,18 +1,21 @@
 const mongoose = require("mongoose");
 const expenseService = require("../../services/user/expenseService");
 const transactionController = require("../../controllers/user/transactionController");
+const {simplifyExpenses} = require('../../middleware/debtSimplify')
 
 exports.createExpense = async (req, res) => {
     if (!req.body)
         return res.status(400).send({message: "Request body is required"});
+    console.log(req.body);
 
     const session = await mongoose.startSession();
     session.startTransaction();
     try {
         const transactions = await transactionController.createMultipleTransactions(req, res);
-        console.log(transactions)
+        console.log("transactions", transactions)
         const expense = await expenseService.createExpense(req.body, transactions);
-        res.status(201).json(expense);
+        await session.commitTransaction();
+        res.status(201).json({'expense': expense, 'transactions': transactions});
     } catch (e) {
         await session.abortTransaction();
         res

@@ -8,6 +8,7 @@ let createTransaction = exports.createTransaction = async (transactionData) => {
     return newTransaction;
 };
 exports.createMultipleTransactions = async (transactions) => {
+    console.log('createMultipleTransactions', transactions)
     let newTransactions = [];
     for (const transaction of transactions) {
         const newTransaction = await createTransaction(transaction);
