@@ -1,9 +1,13 @@
 const mongoose = require("mongoose");
 const expenseSchema = require("../../schema/expense");
-const transactionSchema = require("../../schema/transaction");
 
-exports.createExpense = async (expenseData) => {
+exports.createExpense = async (expenseData, transactions) => {
     expenseData._id = new mongoose.mongo.ObjectId();
+    let members = [];
+    for (const transaction in transactions) {
+        members.push(transaction._id);
+    }
+    expenseData.members = members;
     const newExpense = new expenseSchema(expenseData);
     await newExpense.save();
     return newExpense;
@@ -21,24 +25,4 @@ exports.updateExpenseById = async (expenseId) => {
 };
 
 exports.deleteExpenseById = async (expenseId) => {
-};
-
-exports.createTransaction = async (transactionData, expenseId) => {
-    transactionData._id = new mongoose.mongo.ObjectId();
-    transactionData.expenseId = expenseId;
-    const newTransaction = new transactionSchema(transactionData);
-    await newTransaction.save();
-    return newTransaction;
-};
-
-exports.fetchAllTransactions = async (expenseId) => {
-};
-
-exports.fetchTransactionById = async (transactionId) => {
-};
-
-exports.updateTransactionById = async (transactionId) => {
-};
-
-exports.deleteTransactionById = async (transactionId) => {
 };

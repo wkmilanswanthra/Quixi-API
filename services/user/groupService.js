@@ -23,8 +23,7 @@ exports.findGroupByUserId = async (userId) => {
     }
 }
 exports.findByGroupId = async (groupId) => {
-    const group = await groupSchema.findById(groupId);
-    return group;
+    return groupSchema.findById(groupId).populate('members');
 }
 
 exports.fetchAllGroups = async () => {
