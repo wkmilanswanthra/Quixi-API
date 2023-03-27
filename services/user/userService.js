@@ -62,13 +62,11 @@ exports.findUserById = async (userId) => {
 };
 
 exports.findUserByPhoneNumber = async (phoneNumber) => {
-    const user = await userSchema.findOne({phoneNumber: phoneNumber});
-    return user;
+    return userSchema.findOne({phoneNumber: phoneNumber});
 };
 
 exports.fetchAllUsers = async () => {
-    const users = await userSchema.find();
-    return users;
+    return userSchema.find();
 };
 
 exports.updateUserById = async (userId, userData) => {

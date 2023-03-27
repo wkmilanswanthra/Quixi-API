@@ -19,12 +19,12 @@ exports.find = async (req, res) => {
     try {
         let group;
         if (req.query.id) {
-            group = await groupService.findByGroupId(req.body.id);
+            group = await groupService.findByGroupId(req.query.id);
         } else {
             group = await groupService.fetchAllGroups();
         }
-        if (group) {
-            res.status(404).json({
+        if (!group) {
+            return res.status(404).json({
                 message: "Group not found"
             })
         }

@@ -11,10 +11,12 @@ const transactionSchema = new mongoose.Schema({
     createdOn: {
         type: Date,
         required: true,
+        default: new Date
     },
     updatedOn: {
         type: Date,
         required: true,
+        default: new Date
     },
     paidBy: {
         type: mongoose.mongo.ObjectId,

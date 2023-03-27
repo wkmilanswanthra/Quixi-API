@@ -14,7 +14,6 @@ route.get("/validate", checkAuth);
 route.get("/", checkAuth, userController.find);
 route.patch("/:id", checkAuth, userController.updateUserById);
 route.delete("/:id", checkAuth, userController.deleteUserById);
-route.get("/validate", checkAuth);
 
 //Export router
 module.exports = route;

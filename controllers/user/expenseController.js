@@ -1,16 +1,26 @@
 const mongoose = require("mongoose");
 const expenseService = require("../../services/user/expenseService");
+const transactionController = require("../../controllers/user/transactionController");
 
 exports.createExpense = async (req, res) => {
     if (!req.body)
         return res.status(400).send({message: "Request body is required"});
+
+    const session = await mongoose.startSession();
+    session.startTransaction();
     try {
-        const expense = await expenseService.createExpense(req.body);
-        res.status(201).json(newExpense);
+        const transactions = await transactionController.createMultipleTransactions(req, res);
+        console.log(transactions)
+        const expense = await expenseService.createExpense(req.body, transactions);
+        res.status(201).json(expense);
     } catch (e) {
+        await session.abortTransaction();
         res
             .status(500)
             .send({message: e.message || "There was an error saving the expense"});
+    } finally {
+        await session.endSession();
+
     }
 };
 
