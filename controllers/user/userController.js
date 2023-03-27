@@ -86,3 +86,7 @@ exports.deleteUserById = async (req, res) => {
         res.status(500).send({message: e.message || "Error when deleting user"});
     }
 };
+
+exports.validate = async (req, res) => {
+    res.status(401).send({authenticated: true})
+}
