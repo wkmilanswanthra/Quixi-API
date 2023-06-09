@@ -6,6 +6,7 @@ const jwt = require("jsonwebtoken");
 
 exports.createUser = async (userData) => {
     userData._id = new mongoose.mongo.ObjectId();
+    console.log(userData.age)
     const newUser = new userSchema(userData);
     await newUser.save();
     return newUser;

@@ -17,15 +17,18 @@ exports.createTransaction = async (req, res) => {
     }
 };
 
-exports.createMultipleTransactions = async (req, res) => {
-    if (!req.body)
-        return res.status(400).send({message: "Request body is required"});
+exports.createMultipleTransactions = async (req) => {
+    if (!req.body) throw new Error("Request body is required");
+    console.log("Trying to create multiple transactions");
     try {
-        return await transactionService.createMultipleTransactions(JSON.parse(req.body.transactions));
+        return await transactionService.createMultipleTransactions(req.body);
     } catch (e) {
-        res
-            .status(500)
-            .send({message: e.message || "There was an error saving the transaction"});
+        // res
+        //   .status(500)
+        //   .send({
+        //     message: e.message || "There was an error saving the transaction",
+        //   });
+        throw new Error(e.message);
     }
 };
 
@@ -40,9 +43,10 @@ exports.fetchAllTransactions = async (req, res) => {
 
 exports.fetchAllPendingTransactionsByUserId = async (req, res) => {
     try {
-        const transactions = await transactionService.fetchAllPendingTransactionsByUserId(
-            req.params.user
-        );
+        const transactions =
+            await transactionService.fetchAllPendingTransactionsByUserId(
+                req.params.user
+            );
         res.status(200).json(transactions);
     } catch (e) {
         res.status(500).send({message: e.message || "Server Error"});

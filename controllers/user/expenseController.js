@@ -6,11 +6,15 @@ exports.createExpense = async (req, res) => {
     if (!req.body)
         return res.status(400).send({message: "Request body is required"});
 
+    //   res.status(201).json(req.body);
+
     const session = await mongoose.startSession();
     session.startTransaction();
+
     try {
-        const transactions = await transactionController.createMultipleTransactions(req, res);
-        console.log(transactions)
+        const transactions = await transactionController.createMultipleTransactions(
+            req
+        );
         const expense = await expenseService.createExpense(req.body, transactions);
         res.status(201).json(expense);
     } catch (e) {
@@ -20,7 +24,6 @@ exports.createExpense = async (req, res) => {
             .send({message: e.message || "There was an error saving the expense"});
     } finally {
         await session.endSession();
-
     }
 };
 

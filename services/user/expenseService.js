@@ -4,10 +4,12 @@ const expenseSchema = require("../../schema/expense");
 exports.createExpense = async (expenseData, transactions) => {
     expenseData._id = new mongoose.mongo.ObjectId();
     let members = [];
-    for (const transaction in transactions) {
+    transactions.forEach((transaction) => {
         members.push(transaction._id);
-    }
-    expenseData.members = members;
+    });
+
+    console.log(members);
+    expenseData.transactions = members;
     const newExpense = new expenseSchema(expenseData);
     await newExpense.save();
     return newExpense;

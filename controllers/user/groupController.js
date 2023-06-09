@@ -1,19 +1,21 @@
-const mongoose = require('mongoose')
-const groupService = require('../../services/user/groupService')
+const mongoose = require("mongoose");
+const groupService = require("../../services/user/groupService");
 const userService = require("../../services/user/userService");
 
 exports.createGroup = async (req, res) => {
     if (!req.body)
-        return res.status(400).send({message: "Request body is required"})
+        return res.status(400).send({message: "Request body is required"});
 
     try {
         const token = req.headers.authorization.split(" ")[1];
         const newGroup = await groupService.createGroup(req.body, token);
-        res.status(201).send(newGroup)
+        res.status(201).send(newGroup);
     } catch (e) {
-        res.status(500).send({message: e.message || "There was an error creating the group"})
+        res
+            .status(500)
+            .send({message: e.message || "There was an error creating the group"});
     }
-}
+};
 
 exports.find = async (req, res) => {
     try {
@@ -25,14 +27,14 @@ exports.find = async (req, res) => {
         }
         if (!group) {
             return res.status(404).json({
-                message: "Group not found"
-            })
+                message: "Group not found",
+            });
         }
-        res.status(200).json({group})
+        res.status(200).json({group});
     } catch (e) {
         res.status(500).json({message: e.message || "Server Error"});
     }
-}
+};
 
 exports.findGroupByUserID = async (req, res) => {
     try {
@@ -42,23 +44,23 @@ exports.findGroupByUserID = async (req, res) => {
     } catch (e) {
         res.status(500).json({message: e.message || "Server Error"});
     }
-}
+};
 
 exports.updateGroupById = async (req, res) => {
     try {
         if (!req.body)
             return res.status(400).send({
-                message: "The body cannot be empty to update group data"
-            })
+                message: "The body cannot be empty to update group data",
+            });
         const id = req.params.id;
         req.body.updatedOn = new Date();
         const group = await groupService.updateGroupById(id, req.body);
         if (!group) return res.status(404).json({message: "Group not found"});
-        res.status(200).send({group})
+        res.status(200).send({group});
     } catch (e) {
         res.status(500).send({message: e.message || "Error when updating group"});
     }
-}
+};
 
 exports.deleteByGroupId = async (req, res) => {
     try {

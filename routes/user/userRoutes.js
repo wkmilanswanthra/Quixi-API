@@ -12,6 +12,7 @@ route.post("/signup", userController.createUser);
 route.post("/login", userController.loginUser);
 route.get("/validate", checkAuth);
 route.get("/", checkAuth, userController.find);
+route.get("/:user", checkAuth, userController.find);
 route.patch("/:id", checkAuth, userController.updateUserById);
 route.delete("/:id", checkAuth, userController.deleteUserById);
 
