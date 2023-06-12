@@ -15,11 +15,12 @@ const expenseSchema = new mongoose.Schema({
     createdOn: {
         type: Date,
         required: true,
-        default: Date.now,
+        default: new Date(),
     },
     updatedOn: {
         type: Date,
         required: true,
+        default: new Date(),
     },
     category: {
         type: String,
@@ -45,6 +46,18 @@ const expenseSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    groupExpense: {
+        type: Boolean,
+        required: true,
+        default: false,
+    },
+    summary: {
+        type: Object,
+        required: false,
+        default: null,
+    },
 });
 
 const Expense = mongoose.model("Expense", expenseSchema);
+
+module.exports = Expense;

@@ -2,8 +2,15 @@ const mongoose = require("mongoose");
 const expenseSchema = require("../../schema/expense");
 const transactionSchema = require("../../schema/transaction");
 
-exports.createExpense = async (expenseData) => {
+exports.createExpense = async (expenseData, transactions) => {
     expenseData._id = new mongoose.mongo.ObjectId();
+    let members = [];
+    transactions.forEach((transaction) => {
+        members.push(transaction._id);
+    });
+
+    console.log(members);
+    expenseData.transactions = members;
     const newExpense = new expenseSchema(expenseData);
     await newExpense.save();
     return newExpense;
@@ -17,28 +24,31 @@ exports.fetchAllExpenses = async () => {
 exports.fetchExpenseById = async (expenseId) => {
 };
 
+exports.fetchNonGroupExpenseById = async (userId) => {
+    const expense = await expenseSchema.find({
+        $and: [
+            {
+                createdBy: userId,
+            },
+            {
+                groupExpense: false,
+            },
+        ],
+    });
+    return expense;
+};
+
 exports.updateExpenseById = async (expenseId) => {
 };
 
 exports.deleteExpenseById = async (expenseId) => {
-};
-
-exports.createTransaction = async (transactionData, expenseId) => {
-    transactionData._id = new mongoose.mongo.ObjectId();
-    transactionData.expenseId = expenseId;
-    const newTransaction = new transactionSchema(transactionData);
-    await newTransaction.save();
-    return newTransaction;
-};
-
-exports.fetchAllTransactions = async (expenseId) => {
-};
-
-exports.fetchTransactionById = async (transactionId) => {
-};
-
-exports.updateTransactionById = async (transactionId) => {
-};
-
-exports.deleteTransactionById = async (transactionId) => {
+    const exp = await expenseSchema.findById(expenseId);
+    // if (!exp) return null;
+    const transactions = exp.transactions;
+    transactions.forEach(async (transaction) => {
+        let trans = await transactionSchema.findByIdAndDelete(transaction);
+        console.log("Deleted", trans);
+    });
+    const expense = await expenseSchema.findByIdAndDelete(expenseId);
+    return expense;
 };

@@ -17,11 +17,36 @@ exports.createTransaction = async (req, res) => {
     }
 };
 
+exports.createMultipleTransactions = async (req) => {
+    if (!req.body) throw new Error("Request body is required");
+    console.log("Trying to create multiple transactions");
+    try {
+        return await transactionService.createMultipleTransactions(req.body);
+    } catch (e) {
+        // res
+        //   .status(500)
+        //   .send({
+        //     message: e.message || "There was an error saving the transaction",
+        //   });
+        throw new Error(e.message);
+    }
+};
+
 exports.fetchAllTransactions = async (req, res) => {
     try {
-        const transactions = await transactionService.fetchAllTransactions(
-            req.params.id
-        );
+        const transactions = await transactionService.fetchAllTransactions();
+        res.status(200).json(transactions);
+    } catch (e) {
+        res.status(500).send({message: e.message || "Server Error"});
+    }
+};
+
+exports.fetchAllPendingTransactionsByUserId = async (req, res) => {
+    try {
+        const transactions =
+            await transactionService.fetchAllPendingTransactionsByUserId(
+                req.params.user
+            );
         res.status(200).json(transactions);
     } catch (e) {
         res.status(500).send({message: e.message || "Server Error"});
@@ -45,8 +70,9 @@ exports.updateTransactionById = async (req, res) => {
             req.params.id,
             req.body
         );
-        res.status(200).json(transaction);
+        res.status(200).json({transaction: transaction, status: "success"});
     } catch (e) {
+        console.log(e);
         res.status(500).send({message: e.message || "Server Error"});
     }
 };

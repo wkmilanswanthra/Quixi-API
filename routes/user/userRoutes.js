@@ -10,11 +10,11 @@ const userController = require("../../controllers/user/userController");
 
 route.post("/signup", userController.createUser);
 route.post("/login", userController.loginUser);
-route.get("/validate", checkAuth);
+// route.get("/validate", checkAuth, userController.validate);
 route.get("/", checkAuth, userController.find);
+route.get("/:user", checkAuth, userController.find);
 route.patch("/:id", checkAuth, userController.updateUserById);
 route.delete("/:id", checkAuth, userController.deleteUserById);
-route.get("/validate", checkAuth);
 
 //Export router
 module.exports = route;

@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const groupSchema = new mongoose.Schema({
     _id: {
@@ -24,16 +24,18 @@ const groupSchema = new mongoose.Schema({
     category: {
         type: String,
         required: false,
-        default: "general"
+        default: "general",
     },
-    members: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true,
-    }],
+    members: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User",
+            required: true,
+        },
+    ],
     createdBy: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+        ref: "User",
         required: true,
     },
     createdOn: {
@@ -46,13 +48,15 @@ const groupSchema = new mongoose.Schema({
         default: Date.now,
         required: true,
     },
-    expenses: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Expense',
-        required: false,
-    }],
+    expenses: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Expense",
+            required: false,
+        },
+    ],
 });
 
-const Group = mongoose.model('Group', groupSchema);
+const Group = mongoose.model("Group", groupSchema);
 
-module.exports = Group
+module.exports = Group;

@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 /**
  * Represents a user account.
@@ -14,56 +14,64 @@ const mongoose = require('mongoose');
 
 // Define the user schema using Mongoose
 const userSchema = new mongoose.Schema({
-    _id: {
-        type: mongoose.mongo.ObjectId
-    },
-    name: {
-        type: String,
-        required: true
-    },
-    accountBalance: {
-        type: Number,
-        required: false,
-        default: 0
-    },
-    email: {
-        type: String,
-        required: true,
-        unique: true
-    },
-    phoneNumber: {
-        type: String,
-        required: true
-    },
-    address: {
-        type: String,
-        required: false
-    },
-    createdOn: {
-        type: Date,
-        default: new Date,
-        required: true
-    },
-    updatedOn: {
-        type: Date,
-        default: new Date,
-        required: true
-    },
-    verified: {
-        type: Boolean,
-        default: false,
-        required: true
-    }
-    ,
-    profileImgUrl: {
-        type: String,
-        default: null,
-        required: false
-    }
+  _id: {
+    type: mongoose.mongo.ObjectId,
+  },
+  name: {
+    type: String,
+    required: true,
+  },
+  accountBalance: {
+    type: Number,
+    required: false,
+    default: 0,
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  phoneNumber: {
+    type: String,
+    required: true,
+  },
+  address: {
+    type: String,
+    required: false,
+  },
+  createdOn: {
+    type: Date,
+    default: new Date(),
+    required: true,
+  },
+  updatedOn: {
+    type: Date,
+    default: new Date(),
+    required: true,
+  },
+  verified: {
+    type: Boolean,
+    default: false,
+    required: true,
+  },
+  profileImgUrl: {
+    type: String,
+    default: null,
+    required: false,
+  },
+  age: {
+    type: Number,
+    required: false,
+  },
+  rating: {
+    type: Number,
+    required: false,
+    default: 5,
+  },
 });
 
 // Create the User model using the user schema
-const User = mongoose.model('User', userSchema);
+const User = mongoose.model("User", userSchema);
 
 // Export the User model
 module.exports = User;
