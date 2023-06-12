@@ -13,7 +13,7 @@ const connectDB = require("./config/database");
 app.use(morgan("tiny"));
 
 //Set up the configuration files
-dotenv.config({path: "config/config.env"});
+dotenv.config({ path: "config/config.env" });
 console.log(process.env.MONGO_URI);
 
 //MongoDB connection
@@ -23,14 +23,14 @@ connectDB();
 const PORT = parseInt(process.env.PORT) || 8080;
 
 //Parse request to body parser
-app.use(bodyparser.urlencoded({extended: true}));
+app.use(bodyparser.urlencoded({ extended: true }));
 
 //Setup CORS Headers
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
-      "Access-Control-Allow-Headers",
-      "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
   );
 
   if (req.method === "OPTIONS") {

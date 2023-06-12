@@ -1,5 +1,5 @@
-const express = require('express')
-const checkAuth = require('../../middleware/authentication')
+const express = require("express");
+const checkAuth = require("../../middleware/authentication");
 const route = express.Router();
 
 const groupController = require("../../controllers/user/groupController");
