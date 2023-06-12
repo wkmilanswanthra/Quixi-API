@@ -1,0 +1,45 @@
+.
+├── README.md
+├── config
+│   ├── config.env
+│   └── database.js
+├── controllers
+│   ├── admin
+│   └── user
+│       ├── expenseController.js
+│       ├── groupController.js
+│       ├── settingsController.js
+│       ├── transactionController.js
+│       └── userController.js
+├── index.js
+├── middleware
+│   ├── authentication.js
+│   └── debtSimplify.js
+├── package-lock.json
+├── package.json
+├── project_structure.txt
+├── routes
+│   ├── admin
+│   │   └── adminRoutes.js
+│   └── user
+│       ├── expenseRoutes.js
+│       ├── groupRoutes.js
+│       ├── settingRoutes.js
+│       └── userRoutes.js
+├── schema
+│   ├── credential.js
+│   ├── expense.js
+│   ├── group.js
+│   ├── settings.js
+│   ├── transaction.js
+│   └── user.js
+└── services
+    ├── admin
+    └── user
+        ├── expenseService.js
+        ├── groupService.js
+        ├── settingService.js
+        ├── transactionService.js
+        └── userService.js
+
+12 directories, 30 files

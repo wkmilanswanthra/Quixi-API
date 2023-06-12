@@ -23,7 +23,7 @@ exports.find = async (req, res) => {
         } else {
             group = await groupService.fetchAllGroups();
         }
-        if (group) {
+        if (!group) {
             res.status(404).json({
                 message: "Group not found"
             })
