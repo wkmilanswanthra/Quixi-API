@@ -52,25 +52,26 @@ exports.updateGroupById = async (req, res) => {
             return res.status(400).send({
                 message: "The body cannot be empty to update group data",
             });
+        console.log(req.body);
+        // if (req.body.members)
+        //   req.body.members = JSON.parse(req.body.members).map(
+        //     (id) => new mongoose.Types.ObjectId(id)
+        //   );
         const id = req.params.id;
         req.body.updatedOn = new Date();
         const group = await groupService.updateGroupById(id, req.body);
         if (!group) return res.status(404).json({message: "Group not found"});
         res.status(200).send({group});
     } catch (e) {
+        console.log(e);
         res.status(500).send({message: e.message || "Error when updating group"});
     }
 };
 
 exports.deleteByGroupId = async (req, res) => {
     try {
-        if (!req.body)
-            return res
-                .status(400)
-                .send({message: "The body cannot be empty to update a user"});
         const id = req.params.id;
-        const user = await userService.deleteGroupById(id);
-        if (!user) return res.status(404).json({message: "Group not found"});
+        const group = await groupService.deleteGroupById(id);
         res.status(200).send({message: "Group was deleted successfully"});
     } catch (e) {
         res.status(500).send({message: e.message || "Error when deleting group"});

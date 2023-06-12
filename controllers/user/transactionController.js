@@ -70,8 +70,9 @@ exports.updateTransactionById = async (req, res) => {
             req.params.id,
             req.body
         );
-        res.status(200).json(transaction);
+        res.status(200).json({transaction: transaction, status: "success"});
     } catch (e) {
+        console.log(e);
         res.status(500).send({message: e.message || "Server Error"});
     }
 };

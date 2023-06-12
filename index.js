@@ -4,7 +4,7 @@ const dotenv = require("dotenv");
 const morgan = require("morgan");
 const bodyparser = require("body-parser");
 const app = express();
-const cors = require('cors');
+const cors = require("cors");
 
 //Import the DB connection from the config
 const connectDB = require("./config/database");
@@ -27,28 +27,27 @@ app.use(bodyparser.urlencoded({extended: true}));
 
 //Setup CORS Headers
 app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header(
-        "Access-Control-Allow-Headers",
-        "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-    );
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+      "Access-Control-Allow-Headers",
+      "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  );
 
-    if (req.method === "OPTIONS") {
-        res.header("Access-Control-Allow-Methods", "*");
-        return res.status(200).json({});
-    }
-    next();
+  if (req.method === "OPTIONS") {
+    res.header("Access-Control-Allow-Methods", "*");
+    return res.status(200).json({});
+  }
+  next();
 });
 
 app.use((req, res, next) => {
-    console.log(`${req.method} ${req.url}`, '\n');
-    console.log(`Headers: ${JSON.stringify(req.headers)}`, '\n');
-    console.log(`Body: ${JSON.stringify(req.body)}`, '\n');
-    console.log(`Query: ${JSON.stringify(req.query)}`, '\n');
-    console.log(`hostname: ${JSON.stringify(req.hostname)}`, '\n');
-    next();
+  console.log(`${req.method} ${req.url}`, "\n");
+  console.log(`Headers: ${JSON.stringify(req.headers)}`, "\n");
+  console.log(`Body: ${JSON.stringify(req.body)}`, "\n");
+  console.log(`Query: ${JSON.stringify(req.query)}`, "\n");
+  console.log(`hostname: ${JSON.stringify(req.hostname)}`, "\n");
+  next();
 });
-
 
 /**
  * Mounts the specified middleware function or router at the specified path.
@@ -59,8 +58,9 @@ app.use("/api/users", require("./routes/user/userRoutes"));
 app.use("/api/groups", require("./routes/user/groupRoutes"));
 app.use("/api/expenses", require("./routes/user/expenseRoutes"));
 app.use("/api/transactions", require("./routes/user/transactionRouter"));
+app.use("/api/payments", require("./routes/user/paymentRoutes"));
 
-app.use("/api/admin/" ,require("./routes/admin/adminRoutes"));
+app.use("/api/admin/", require("./routes/admin/adminRoutes"));
 
 /**
  * Starts the server and listens on the specified port.
@@ -68,5 +68,5 @@ app.use("/api/admin/" ,require("./routes/admin/adminRoutes"));
  * @param {Function} callback - The function to call when the server starts listening
  */
 app.listen(PORT, () => {
-    console.log(`server listening on port ${PORT}`);
+  console.log(`server listening on port ${PORT}`);
 });

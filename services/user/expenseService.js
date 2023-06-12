@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const expenseSchema = require("../../schema/expense");
+const transactionSchema = require("../../schema/transaction");
 
 exports.createExpense = async (expenseData, transactions) => {
     expenseData._id = new mongoose.mongo.ObjectId();
@@ -23,8 +24,31 @@ exports.fetchAllExpenses = async () => {
 exports.fetchExpenseById = async (expenseId) => {
 };
 
+exports.fetchNonGroupExpenseById = async (userId) => {
+    const expense = await expenseSchema.find({
+        $and: [
+            {
+                createdBy: userId,
+            },
+            {
+                groupExpense: false,
+            },
+        ],
+    });
+    return expense;
+};
+
 exports.updateExpenseById = async (expenseId) => {
 };
 
 exports.deleteExpenseById = async (expenseId) => {
+    const exp = await expenseSchema.findById(expenseId);
+    // if (!exp) return null;
+    const transactions = exp.transactions;
+    transactions.forEach(async (transaction) => {
+        let trans = await transactionSchema.findByIdAndDelete(transaction);
+        console.log("Deleted", trans);
+    });
+    const expense = await expenseSchema.findByIdAndDelete(expenseId);
+    return expense;
 };

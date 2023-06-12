@@ -15,12 +15,12 @@ const expenseSchema = new mongoose.Schema({
     createdOn: {
         type: Date,
         required: true,
-        default: new Date
+        default: new Date(),
     },
     updatedOn: {
         type: Date,
         required: true,
-        default: new Date
+        default: new Date(),
     },
     category: {
         type: String,
@@ -45,6 +45,16 @@ const expenseSchema = new mongoose.Schema({
     splitMethod: {
         type: String,
         required: true,
+    },
+    groupExpense: {
+        type: Boolean,
+        required: true,
+        default: false,
+    },
+    summary: {
+        type: Object,
+        required: false,
+        default: null,
     },
 });
 

@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const transactionSchema = new mongoose.Schema({
+const paymentSchema = new mongoose.Schema({
     _id: {
         type: mongoose.mongo.ObjectId,
     },
@@ -28,16 +28,13 @@ const transactionSchema = new mongoose.Schema({
         required: true,
         ref: "User",
     },
-    status: {
-        type: String,
+    transactionId: {
+        type: mongoose.mongo.ObjectId,
         required: true,
-        default: "pending",
-        enum: ["pending", "paid", "completed"],
+        ref: "Transaction",
     },
 });
 
-// Create the User model using the user schema
-const Transaction = mongoose.model("Transaction", transactionSchema);
+const Payment = mongoose.model("Payment", paymentSchema);
 
-// Export the User model
-module.exports = Transaction;
+module.exports = Payment;

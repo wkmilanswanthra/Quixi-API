@@ -7,9 +7,9 @@ exports.simplifyExpenses = (contributors, divisionMethod) => {
         (prev, total) => total + prev
     );
     if (divisionMethod === "equal") {
-        // console.log(totalExpense);
+        console.log(totalExpense);
         const transactions = separateEqual(contributors, totalExpense);
-        // console.log(transactions);
+        console.log(transactions);
         return transactions;
     }
 };
@@ -17,7 +17,7 @@ exports.simplifyExpenses = (contributors, divisionMethod) => {
 function separateEqual(contributors, totalExpense) {
     const perPerson =
         Math.round((totalExpense / Object.keys(contributors).length) * 100) / 100;
-    //   console.log(perPerson);
+    console.log(perPerson);
 
     let creditors = [];
     for (const [person, amount] of Object.entries(contributors)) {
@@ -29,7 +29,7 @@ function separateEqual(contributors, totalExpense) {
             });
         }
     }
-    //   console.log(creditors);
+    console.log(creditors);
 
     let debtors = [];
     for (const [person, amount] of Object.entries(contributors)) {
@@ -41,11 +41,15 @@ function separateEqual(contributors, totalExpense) {
             });
         }
     }
-    //   console.log(debtors, "\n\nLoop\n");
+    console.log(debtors, "\n\nLoop\n");
 
     const transactions = [];
     for (const creditor of creditors) {
-        while (creditor.owed !== 0) {
+        console.log(creditor);
+        let counter = 100;
+        while (creditor.owed > 0 && counter > 0) {
+            counter--;
+            console.log(creditor.owed);
             for (let i = 0; i < debtors.length;) {
                 const debtor = debtors[i];
                 const x = creditor.owed - debtor.owes;
@@ -81,6 +85,6 @@ function separateEqual(contributors, totalExpense) {
             }
         }
     }
-    //   console.log(transactions);
+    console.log(transactions);
     return transactions;
 }
