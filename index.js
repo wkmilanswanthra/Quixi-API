@@ -59,6 +59,8 @@ app.use("/api/groups", require("./routes/user/groupRoutes"));
 app.use("/api/expenses", require("./routes/user/expenseRoutes"));
 app.use("/api/transactions", require("./routes/user/transactionRouter"));
 app.use("/api/payments", require("./routes/user/paymentRoutes"));
+app.use("/api/settings", require("./routes/user/settingRoutes"));
+app.use('/uploads', express.static('uploads'));
 
 app.use("/api/admin/", require("./routes/admin/adminRoutes"));
 
