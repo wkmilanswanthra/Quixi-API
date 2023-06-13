@@ -88,3 +88,12 @@ exports.getBalanceById = async (userId) => {
   const balance = await userSchema.findById(userId, "accountBalance");
   return balance;
 };
+
+exports.updateUserProfileImage = async (userId, imagePath) => {
+  const updatedUser = await userSchema.findByIdAndUpdate(
+    userId, 
+    { profileImgUrl: imagePath }, 
+    { new: true, runValidators: true }
+  );
+  return updatedUser;
+};

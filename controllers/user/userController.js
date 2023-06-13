@@ -87,3 +87,20 @@ exports.deleteUserById = async (req, res) => {
     res.status(500).send({message: e.message || "Error when deleting user"});
   }
 };
+
+exports.updateUserProfileImage = async (req, res) => {
+  try {
+    if (!req.file) 
+      return res.status(400).send({ message: 'No file uploaded' });
+
+    const imagePath = `uploads/${req.file.filename}`;
+    const user = await userService.updateUserProfileImage(req.params.id, imagePath);
+    if (!user) 
+      return res.status(404).send({ message: 'User not found' });
+
+    res.status(200).json(user);
+  } catch (e) {
+    res.status(500).send({ message: e.message || 'Error when updating user' });
+  }
+};
+
